@@ -1,8 +1,38 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Display from './Display';
 
+
+const Bob = ({ text , slow, data }) => {  
+  if(slow === true ) {
+    const newdata = data.toLowerCase();
+    return (
+        <div>is slow {newdata}</div>
+    ) 
+  } else {
+    return (
+      <div>is not</div>
+    )
+  }
+}
 class App extends Component {
+  state = {
+    title: "Hello there. How are you?",
+    body: "There was a dog and it was brown.",
+    postsCount: 18,
+    data: 'InformationGateraSDADSAB'
+  }
+  upVote = () => {
+    this.setState({
+      postsCount: this.state.postsCount + 1,
+    })
+  }
+  downVote = () => {
+    this.setState({
+      postsCount: this.state.postsCount -1,
+    })
+  }
   render() {
     return (
       <div className="App">
@@ -19,6 +49,17 @@ class App extends Component {
           >
             Learn React
           </a>
+          <Display 
+             {...this.state}
+             upVote={this.upVote}
+             downVote={this.downVote}
+             style={{
+               paddingBottom: 40,
+               height:'100%'
+             }}
+          />
+        
+          {Bob({text: "hiiii", slow: true, data: this.state.data})}
         </header>
       </div>
     );
